@@ -1,1 +1,179 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Transforme documentos em apresentações com inteligência artificial.">
+  <title>SlideIA — Crie apresentações com IA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="#">
+      <span class="logo-icon">S</span>
+      <span>Slide<span class="accent">IA</span></span>
+    </a>
+    <span class="status"><span class="dot"></span> Seu estúdio de apresentações</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">✦ SEU ASSISTENTE DE APRESENTAÇÕES</div>
+      <h1>Suas ideias merecem<br><span>slides incríveis.</span></h1>
+      <p>Envie um documento. Nossa IA vai ajudar você a transformar
+        informações em uma apresentação organizada e profissional.</p>
+    </section>
+
+    <section class="workspace">
+      <div class="section-heading">
+        <div>
+          <span class="step">ETAPA 01</span>
+          <h2>Seu material</h2>
+          <p>Escolha o arquivo que servirá de base.</p>
+        </div>
+      </div>
+
+      <label class="upload-zone" id="uploadZone" for="fileInput">
+        <span class="upload-icon">↑</span>
+        <strong>Toque para escolher um arquivo</strong>
+        <span>PDF, DOCX, PPTX, TXT ou imagem</span>
+        <span class="upload-hint">Você também pode selecionar pelo app Arquivos.</span>
+        <input id="fileInput" type="file"
+          accept=".pdf,.docx,.pptx,.txt,.md,.png,.jpg,.jpeg,.webp">
+      </label>
+      <div id="fileInfo" class="file-info hidden"></div>
+
+      <div class="field">
+        <label for="topic">Sobre o que será a apresentação?</label>
+        <input id="topic" type="text"
+          placeholder="Ex.: Plano de recuperação operacional">
+        <small>Opcional se o assunto estiver no documento.</small>
+      </div>
+
+      <div class="section-heading second-heading">
+        <div>
+          <span class="step">ETAPA 02</span>
+          <h2>Personalize os slides</h2>
+          <p>Escolha como sua apresentação deve ficar.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="style">Estilo visual</label>
+        <select id="style">
+          <option value="moderno">Moderno e profissional</option>
+          <option value="academico">Trabalho escolar / acadêmico</option>
+          <option value="corporativo">Empresarial</option>
+          <option value="minimalista">Minimalista</option>
+          <option value="criativo">Criativo e colorido</option>
+          <option value="hospitalar">Saúde e hospitalar</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="count">Quantidade de slides</label>
+        <select id="count">
+          <option value="5">5 slides — breve</option>
+          <option value="8" selected>8 slides — equilibrada</option>
+          <option value="10">10 slides — detalhada</option>
+          <option value="15">15 slides — completa</option>
+          <option value="20">20 slides — aprofundada</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="audience">Público da apresentação</label>
+        <select id="audience">
+          <option value="geral">Público geral</option>
+          <option value="escolar">Professor e turma escolar</option>
+          <option value="academico">Público acadêmico</option>
+          <option value="profissional">Equipe profissional</option>
+          <option value="executivo">Gestores e executivos</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="instructions">Instruções adicionais</label>
+        <textarea id="instructions" rows="3"
+          placeholder="Ex.: use textos curtos, inclua uma conclusão e destaque os dados importantes..."></textarea>
+      </div>
+
+      <button id="generateBtn" class="primary-button" type="button">
+        <span>✦</span> Criar minha apresentação
+        <span class="button-arrow">→</span>
+      </button>
+      <p class="privacy-note">Seu documento deve ser tratado com cuidado.
+        Revise o conteúdo gerado antes de apresentar.</p>
+    </section>
+
+    <section id="resultSection" class="result-section hidden">
+      <div class="result-header">
+        <div>
+          <span class="step">SUA APRESENTAÇÃO</span>
+          <h2 id="presentationTitle">Pré-visualização</h2>
+          <p id="slideCounter">Slide 1</p>
+        </div>
+        <button id="editBtn" class="secondary-button" type="button">
+          Editar slide
+        </button>
+      </div>
+
+      <div id="slideCanvas" class="slide-canvas">
+        <div class="slide-content">
+          <span class="slide-label">SLIDEIA</span>
+          <h2 id="previewTitle">Sua apresentação aparecerá aqui</h2>
+          <p id="previewBody">Depois de gerar os slides, você poderá visualizar
+            e editar o conteúdo nesta área.</p>
+        </div>
+      </div>
+
+      <div class="slide-navigation">
+        <button id="previousBtn" class="secondary-button" type="button">
+          ← Anterior
+        </button>
+        <div id="slideDots" class="slide-dots"></div>
+        <button id="nextBtn" class="secondary-button" type="button">
+          Próximo →
+        </button>
+      </div>
+
+      <div class="field">
+        <label for="editTitle">Título do slide selecionado</label>
+        <input id="editTitle" type="text" placeholder="Título">
+      </div>
+      <div class="field">
+        <label for="editBody">Conteúdo do slide selecionado</label>
+        <textarea id="editBody" rows="5" placeholder="Conteúdo do slide"></textarea>
+      </div>
+      <button id="saveEditBtn" class="primary-button" type="button">
+        Salvar alterações
+      </button>
+
+      <div class="export-actions">
+        <button id="pptxBtn" class="secondary-button" type="button">
+          Baixar PowerPoint
+        </button>
+        <button id="pdfBtn" class="secondary-button" type="button">
+          Imprimir / salvar PDF
+        </button>
+      </div>
+    </section>
+
+    <div id="message" class="message hidden" role="status"></div>
+
+    <footer>
+      <a class="logo footer-logo" href="#">
+        <span class="logo-icon">S</span>
+        <span>Slide<span class="accent">IA</span></span>
+      </a>
+      <p>Transformando documentos em novas possibilidades.</p>
+      <span>SlideIA © 2026</span>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
