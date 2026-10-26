@@ -1,1 +1,24 @@
 
+{
+  "name": "slideia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plataforma de inteligência artificial para criar apresentações",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@google/genai": "^1.0.0",
+    "adm-zip": "^0.5.16",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mammoth": "^1.9.0",
+    "multer": "^2.0.0",
+    "pdf-parse": "1.1.1",
+    "pptxgenjs": "^3.12.0"
+  }
+}
